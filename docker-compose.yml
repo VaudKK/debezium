@@ -1,0 +1,41 @@
+version: '3.3'
+
+services:
+  db:
+    container_name: my_practice_db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: practice_db
+      MYSQL_USER: 'testuser'
+      MYSQL_PASSWORD: 'test123'
+      MYSQL_ROOT_PASSWORD: 'root123'
+    ports:
+      # <port exposed> : <port running inside container>
+      - '60255:3306'
+    expose:
+      # <opens port 60255 on container>
+      - '60255'
+    volumes:
+      # where data will be persisted>
+      - my-db:/var/lib/mysql
+  db-2:
+    container_name: my_target_db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: practice_db
+      MYSQL_USER: 'testuser'
+      MYSQL_PASSWORD: 'test123'
+      MYSQL_ROOT_PASSWORD: 'root123'
+    ports:
+      # <port exposed> : <port running inside container>
+      - '60256:3306'
+    expose:
+      # <opens port 60255 on container>
+      - '60256'
+    volumes:
+      # where data will be persisted>
+      - my-db:/var/lib/mysql
+volumes:
+  my-db:
